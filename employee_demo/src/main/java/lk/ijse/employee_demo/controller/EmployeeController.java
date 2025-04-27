@@ -33,7 +33,12 @@ public class EmployeeController {
 
     @GetMapping("/view/{id}")
     public Employee getEmployee(@PathVariable int id) {
-          return employeeService.getSelectedEmployee(id);
+        Employee selectedEmployee = employeeService.getSelectedEmployee(id);
+        if (selectedEmployee != null) {
+            return selectedEmployee;
+        }else {
+            throw new RuntimeException("Employee not found");
+        }
     }
     @PutMapping("/update/{id}")
     public void updateEmployee(@RequestBody Employee employee, @PathVariable int id) {
